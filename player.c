@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/15 16:55:51 by lufreder          #+#    #+#             */
-/*   Updated: 2024/04/17 15:55:17 by lufreder         ###   ########.fr       */
+/*   Created: 2024/04/17 13:54:51 by lufreder          #+#    #+#             */
+/*   Updated: 2024/04/18 16:13:22 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	update_player_position(t_vars *vars)
+{
+	int	new_x = vars->player->pos.x + 1;
+	int	new_y = vars ->player->pos.y + 1;
+}
 
-if (all_collectables_collected && exit_count == 1)
-	return map_valid;
-if (on_wall)
-	return map_invalid;
-if (on_collectable)
-	collectables++;
-if (on_exit)
-	exits++;
-replace_current_position_with_wall;
-if (one_of_the_four_adjacent_directions_is_possible)
-	return map_valid;
-return map_invalid;
+int	players_move(int keyboard, t_vars *vars)
+{
+	if(keyboard == KEY_RIGHT)
+		vars->player.pos.x += 1;
+	if(keyboard == KEY_LEFT)
+		vars->player.pos.x -= 1;
+	if (keyboard == KEY_UP)
+		vars->player.pos.y += 1;
+	if (keyboard == KEY_BOTTOM)
+		vars->player.pos.y -= 1;
+}
