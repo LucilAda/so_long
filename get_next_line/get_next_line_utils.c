@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 14:27:35 by lufreder          #+#    #+#             */
-/*   Updated: 2024/04/18 16:24:55 by lufreder         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:41:47 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*_ft_substr(char *s, unsigned int start, size_t len)
 	return (dest);
 }
 
-size_t	ft_strlen(char	*s)
+size_t	ft_strlen(const char	*s)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ size_t	ft_strlen(char	*s)
 	return (i);
 }
 
-char	*ft_strdup(char *s1)
+char	*ft_strdup(const char *s1)
 {
 	char	*dest;
 	size_t	i;
@@ -71,7 +71,7 @@ char	*ft_strdup(char *s1)
 	return (dest);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*dest;
 	int		len;
@@ -95,7 +95,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (dest);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{

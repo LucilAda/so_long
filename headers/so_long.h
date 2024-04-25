@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:25 by lufreder          #+#    #+#             */
-/*   Updated: 2024/04/18 16:48:03 by lufreder         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:32:39 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG.H
-# define SO_LONG.H
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
-# include "./libft.h"
-# include "./printf.h"
+# include "../libft/libft.h"
+# include "../ft_printf/ft_printf.h"
 # include "./get_next_line.h"
-# include "../minilibx/mlx.h"
+// # include "../minilibx/mlx.h"
 
 # include <unistd.h>
 # include <stdio.h>
@@ -29,32 +29,20 @@
 #define KEY_LEFT 'A'
 #define KEY_BOTTOM 'S'
 
-typedef struct s_data
+// typedef struct s_data
+// {
+// 	void		*mlx_ptr; // MLX pointer
+// 	void		*win_ptr; // MLX window pointer
+// 	void		*textures[5]; // MLX image pointers (on the stack)
+// 	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)
+// }	t_data;
+
+typedef struct s_map
 {
-	void		*mlx_ptr; // MLX pointer
-	void		*win_ptr; // MLX window pointer
-	void		*textures[5]; // MLX image pointers (on the stack)
-	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)
-}	t_data;
-
-
-typedef struct {
-	int	x;
-	int	y;
-} t_player;
-
-typedef struct s_vars
-{
-	t_player	*player;
-} 	t_vars;
-
-typedef struct s_long
-{
-	int		fd;
-	int		height_map;
-	int		width_map;
-
+	int		x;
+	int		y;
 	char	**map;
-}	t_long;
+	int		fd;
+}		t_map;
 
 #endif

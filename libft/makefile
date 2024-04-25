@@ -3,14 +3,16 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+         #
+#    By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 14:49:06 by lufreder          #+#    #+#              #
-#    Updated: 2024/04/15 17:20:28 by lufreder         ###   ########.fr        #
+#    Updated: 2024/04/25 16:25:33 by lucilla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
+
+HEADER = libft.h
 
 SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c \
@@ -29,20 +31,20 @@ CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJ) libft.h
-	@$ AR -r $@ $?
+$(NAME): $(OBJ)
+	@ar rcs ${NAME} ${OBJ}
 	
 bonus : $(OBJ) $(BOBJ)
 	@$ AR -r $(NAME) $?
 
 %.o: %.c
-	@$(CC) -c $(CFLAGS) $?
+	@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I ${HEADER}
 
 clean:
-	@rm -f $(OBJ) $(BOBJ) $(NAME)
+	@rm -f $(OBJ) $(BOBJ)
 
 fclean: clean
-	@rm -f $(OBJ) $(BOBJ) $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
