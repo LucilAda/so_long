@@ -3,44 +3,55 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+         #
+#    By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 16:41:03 by lufreder          #+#    #+#              #
-#    Updated: 2024/04/18 16:25:52 by lufreder         ###   ########.fr        #
+#    Updated: 2024/04/26 09:13:08 by lucilla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := so_long
 # Name of the program to be created
 
-SRC := /so_long /get_next_line/get_next_line.c 
-	/get_next_line/get_next_line_utils.c
+SRC := src/map_check.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 OBJ := $(SRC:.c=.o)
-LIBRARY := -Lminilibx -lmlx -framework OpenGL -framework AppKit
-MINILIBX := minilibx/
+#LIBRARY := -Lminilibx -lmlx -framework OpenGL -framework AppKit
+#MINILIBX := minilibx/
+#HEADER = headers/so_long.h headers/get_next_line.h
+HEADER = -Iheaders
 
-HEADERS = -Iheaders
+LIBFT_DIR = libft
+LIBFT = -L$(LIBFT_DIR) -lftprintf
+
+FT_PRINTF_DIR = ft_printf
+FT_PRINTF = -L$(FT_PRINTF_DIR) -lft
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 %.o: %.c
-	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
+	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $(<:.c=.o)
 
 all: $(NAME)
 
 $(NAME) : $(OBJ)
-	@make -c $(MINILIBX)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBRARY) -Llibft -lft -o $@
+	@make -C $(LIBFT_DIR) 
+	@make -C $(FT_PRINTF_DIR)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(FT_PRINTF) -o $(NAME)
+#	@make -c $(MINILIBX)
+#	@$(CC) $(CFLAGS) $(OBJ) $(LIBRARY) -Llibft -lft -o $@
 
 clean:
-	@make clean -c ./libft
-	rm -f $(OBJ)
+	@make clean -C ./libft 
+	@make clean -C ./ft_printf
+	@rm -f $(OBJ)
 
 # Cleaning up the program and object files
 fclean: clean
-	make clean -C $(MINILIBX)
-	rm -f $(NAME)
+#	make clean -C $(MINILIBX)
+	@make fclean -C ./libft 
+	@make fclean -C ./ft_printf
+	@rm -f $(NAME)
 
 # Rebuilding the project
 re: fclean all
