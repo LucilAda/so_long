@@ -6,14 +6,14 @@
 #    By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 16:41:03 by lufreder          #+#    #+#              #
-#    Updated: 2024/04/26 09:13:08 by lucilla          ###   ########.fr        #
+#    Updated: 2024/04/26 10:56:39 by lucilla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := so_long
 # Name of the program to be created
 
-SRC := src/map_check.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+SRC := map_check.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 OBJ := $(SRC:.c=.o)
 #LIBRARY := -Lminilibx -lmlx -framework OpenGL -framework AppKit
 #MINILIBX := minilibx/

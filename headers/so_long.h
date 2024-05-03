@@ -6,7 +6,7 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:25 by lufreder          #+#    #+#             */
-/*   Updated: 2024/04/25 16:32:39 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/03 17:23:11 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,17 @@
 // 	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)
 // }	t_data;
 
-typedef struct s_map
+typedef struct s_game
 {
 	int		x;
 	int		y;
-	char	**map;
+	int		width;
+	int		height;
 	int		fd;
-}		t_map;
+	int		numberP;
+	int		numberC;
+	int		numberE;
+	char	**map;
+}		t_game;
 
 #endif
