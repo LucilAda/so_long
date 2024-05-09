@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 13:54:09 by lucilla           #+#    #+#             */
-/*   Updated: 2024/05/07 14:19:25 by lucilla          ###   ########.fr       */
+/*   Created: 2024/04/17 13:54:51 by lufreder          #+#    #+#             */
+/*   Updated: 2024/04/25 10:24:44 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "so_long.h"
 
-char	*ft_strcpy(char *dest, char *src)
+void	update_player_position(t_vars *vars)
 {
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	int	new_x = vars->player->pos.x + 1;
+	int	new_y = vars ->player->pos.y + 1;
 }
 
-/*int	main(int argc, char *argv[])
+int	players_move(int keyboard, t_vars *vars)
 {
-	int	i;
-	if (argc == 3)
-	{
-		ft_strcpy(argv[1], argv[2]);
-		i = 0;
-		while (argv[1][i])
-		{
-			write(1, &argv[1][i], 1);
-			i++;
-		}
-	}
-	return (0);
-}*/
+	if(keyboard == KEY_RIGHT)
+		vars->player.pos.x += 1;
+	if(keyboard == KEY_LEFT)
+		vars->player.pos.x -= 1;
+	if (keyboard == KEY_UP)
+		vars->player.pos.y += 1;
+	if (keyboard == KEY_BOTTOM)
+		vars->player.pos.y -= 1;
+}

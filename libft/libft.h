@@ -6,7 +6,7 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:23:55 by lufreder          #+#    #+#             */
-/*   Updated: 2024/04/25 15:42:35 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/07 14:20:29 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
+char	*ft_strcpy(char *dest, char *src);
 int		ft_atoi(const char *str);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
@@ -41,6 +42,7 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(char *s1, char *s2);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);

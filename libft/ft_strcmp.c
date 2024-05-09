@@ -6,12 +6,11 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:55:03 by lucilla           #+#    #+#             */
-/*   Updated: 2023/11/10 12:08:32 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/07 14:28:49 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
+#include "libft.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {

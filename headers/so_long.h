@@ -6,7 +6,7 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:25 by lufreder          #+#    #+#             */
-/*   Updated: 2024/05/03 17:23:11 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/08 15:07:19 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,10 @@ typedef struct s_game
 	int		numberE;
 	char	**map;
 }		t_game;
+
+int 		map_read(t_game *game, char *av[]);
+int			check_map_access(char *av[]);
+int 		check_collectibles(t_game *game);
+int			are_there_walls(t_game *map);
 
 #endif
