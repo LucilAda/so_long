@@ -6,7 +6,7 @@
 #    By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 16:41:03 by lufreder          #+#    #+#              #
-#    Updated: 2024/05/08 16:39:09 by lucilla          ###   ########.fr        #
+#    Updated: 2024/05/16 08:26:52 by lucilla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ NAME := so_long
 SRC := src/main.c src/map_check.c src/on_the_map.c \
 	../get_next_line/get_next_line.c ../get_next_line/get_next_line_utils.c
 OBJ := $(SRC:.c=.o)
-#LIBRARY := -Lminilibx -lmlx -framework OpenGL -framework AppKit
-#MINILIBX := minilibx/
-#HEADER = headers/so_long.h headers/get_next_line.h
+# LIBRARY := -Lminilibx -lmlx -framework OpenGL -framework AppKit
+# MINILIBX := minilibx/
+HEADER = headers/so_long.h headers/get_next_line.h
 HEADERS = -Iheaders
 
 LIBFT_DIR = libft
@@ -28,7 +28,7 @@ FT_PRINTF_DIR = ft_printf
 FT_PRINTF = -L$(FT_PRINTF_DIR) -lft
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror 
 
 %.o: %.c
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
@@ -36,7 +36,9 @@ CFLAGS = -Wall -Wextra -Werror -g
 all: $(NAME)
 
 $(NAME) : $(OBJ)
-	@make -C $(LIBFT_DIR) 
+	@echo "Making in $(LIBFT_DIR)"
+	@make -C $(LIBFT_DIR)
+	@echo "Making in $(FT_PRINTF_DIR)"
 	@make -C $(FT_PRINTF_DIR)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(FT_PRINTF) -o $(NAME)
 #	@make -c $(MINILIBX)

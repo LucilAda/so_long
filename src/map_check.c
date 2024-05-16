@@ -6,19 +6,18 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:07:04 by lucilla           #+#    #+#             */
-/*   Updated: 2024/05/08 16:58:03 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/15 16:12:17 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
-
 /**
  * 
  * 1) Valider map (si validd => charger en mémoire (char **))
- *      - Valider longueur ligne (rectangle)
- *      - Valider Player exist == 1
- *      - Valider Collectible >= 1
- *      - Valider Exit == 1
+ *      - Valider longueur ligne (rectangle) - OK
+ *      - Valider Player exist == 1 - OK
+ *      - Valider Collectible >= 1 - OK
+ *      - Valider Exit == 1 - OK
  *      - Valider Chemin possible
  * Flood fill?
  *      - Valider Charactères invalid (P/M/C/E/W)
@@ -84,8 +83,6 @@ int map_read(t_game *game, char *av[])
 	while (1)
 	{
 		reading = get_next_line(game->fd);
-		if (!reading)
-			ft_printf("error reading\n");
 		if (!add_line(game, reading))
 			break;
 	}
@@ -94,16 +91,19 @@ int map_read(t_game *game, char *av[])
 	close(game->fd);
 	return (1);
 }
+/**
+ * @brief ma fonction test si .ber 
+ * @param
+*/
 
+#include <stdbool.h>
+//bool is_file_format_ok
 int	check_map_access(char *av[])
 {
 	size_t len;
 	len = ft_strlen(av[1]);
 	if (len < 4 || ft_strcmp(av[1] + len - 4, ".ber") != 0) 
-	{
-		ft_printf("Wrong type of file\n");
-		return (EXIT_FAILURE);
-	}
-	ft_printf("The access of the map is correct\n");
-	return (EXIT_SUCCESS);
+		return (ft_printf("Wrong type of file\n"));
+	else
+		return (ft_printf("The access of the map is correct\n"));
 }
