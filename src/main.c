@@ -6,7 +6,7 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:51:09 by lucilla           #+#    #+#             */
-/*   Updated: 2024/05/15 17:04:50 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/21 11:55:04 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,20 @@ int main(int ac, char *av[])
     {
         ft_printf("Error reading map\n");
         return (1);
-    } 
+    }
     // Print the map to verify
     for (int i = 0; i < game.height; i++)
     {
         ft_printf("%s", game.map[i]);
     }
 	ft_printf("\n");
-
-    ft_printf("Before requirements are checked\n");
-    if (check_requirements(&game) != 0)
+    
+    if (check_requirements(&game) == false)
     {
         ft_printf("check_requirements invalid\n");
         return (12);
     }
-    ft_printf("After requirements are checked\n");
-
-    for (int i = 0; i < game.height; i++)
-    {
-        ft_printf("%s", game.map[i]);
-    }
-    ft_printf("\n");
-    
+    ft_printf("All requirements are met\n");
     free(game.map_copy);
     free(game.map);
 

@@ -6,7 +6,7 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:07:04 by lucilla           #+#    #+#             */
-/*   Updated: 2024/05/15 16:12:17 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/16 13:40:10 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
  *          - imprimer le nombre de mouvement (dans le terminal)
 */
 
+/**
+ * Calculate the width of one line of the map
+*/
 static int	map_width(char *s)
 {
 	size_t	width;
@@ -46,34 +49,43 @@ static int	map_width(char *s)
 	return (width);
 }
 
+/**
+ * Add lines to the map
+*/
 static int	add_line(t_game *game, char *line)
 {
-	char	**tmp;
+	char	**tmp_map;
 	int		i;
 	
 	i = 0;
 	if (!line)
 		return (0);
 	game->height++;
-	tmp = (char **)malloc(sizeof(char *) * (game->height + 1));
-	if (!tmp)
+	tmp_map = (char **)malloc(sizeof(char *) * (game->height + 1));
+	if (!tmp_map)
 		return (0);
-	tmp[game->height] = NULL;
+	tmp_map[game->height] = NULL;
 	while (i < game->height - 1)
 	{
-		tmp[i] = game->map[i];
+		tmp_map[i] = game->map[i];
 		i++;
 	}
-	tmp[i] = line;
+	if (game->height > 1 && map_width(game->map[0]) != map_width(line))
+	{
+		ft_printf("The map is not rectangular\n");
+        exit (1);
+	}
+	tmp_map[i] = line;
 	if (game->map)
 		free(game->map);
-	game->map = tmp;
-	return (1);
+	game->map = tmp_map;
+	return (2);
 }
 
 int map_read(t_game *game, char *av[])
 {
-	char	*reading;
+	char	*read_line;
+
 	game->fd = open(av[1], O_RDONLY);
 	if (game->fd == -1)
 	{
@@ -82,14 +94,14 @@ int map_read(t_game *game, char *av[])
 	}
 	while (1)
 	{
-		reading = get_next_line(game->fd);
-		if (!add_line(game, reading))
+		read_line = get_next_line(game->fd);
+		if (!add_line(game, read_line))
 			break;
 	}
 	game->width = map_width(game->map[0]);
-	free(reading);
+	free(read_line);
 	close(game->fd);
-	return (1);
+	return (3);
 }
 /**
  * @brief ma fonction test si .ber 
