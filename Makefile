@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+         #
+#    By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 16:41:03 by lufreder          #+#    #+#              #
-#    Updated: 2024/05/16 08:26:52 by lucilla          ###   ########.fr        #
+#    Updated: 2024/05/22 14:08:19 by lufreder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,24 +14,26 @@ NAME := so_long
 # Name of the program to be created
 
 SRC := src/main.c src/map_check.c src/on_the_map.c \
-	../get_next_line/get_next_line.c ../get_next_line/get_next_line_utils.c
+	get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
 OBJ := $(SRC:.c=.o)
-# LIBRARY := -Lminilibx -lmlx -framework OpenGL -framework AppKit
-# MINILIBX := minilibx/
-HEADER = headers/so_long.h headers/get_next_line.h
-HEADERS = -Iheaders
 
-LIBFT_DIR = libft
-LIBFT = -L$(LIBFT_DIR) -lftprintf
+LIBRARY := -Lminilibx -lmlx -framework OpenGL -framework AppKit
+MINILIBX := minilibx/
+HEADER := headers/so_long.h headers/get_next_line.h
+HEADERS := -Iheaders
 
-FT_PRINTF_DIR = ft_printf
-FT_PRINTF = -L$(FT_PRINTF_DIR) -lft
+LIBFT_DIR := libft
+LIBFT := -L$(LIBFT_DIR) -lftprintf
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror 
+FT_PRINTF_DIR := ft_printf
+FT_PRINTF := -L$(FT_PRINTF_DIR) -lftprintf
+
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror
+
 
 %.o: %.c
-	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
 all: $(NAME)
 
@@ -40,20 +42,21 @@ $(NAME) : $(OBJ)
 	@make -C $(LIBFT_DIR)
 	@echo "Making in $(FT_PRINTF_DIR)"
 	@make -C $(FT_PRINTF_DIR)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(FT_PRINTF) -o $(NAME)
-#	@make -c $(MINILIBX)
-#	@$(CC) $(CFLAGS) $(OBJ) $(LIBRARY) -Llibft -lft -o $@
+	@echo "Making in $(MINILIBX)"
+	@make -c $(MINILIBX)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(FT_PRINTF) $(LIBRARY) -o $(NAME)
 
 clean:
-	@make clean -C ./libft 
-	@make clean -C ./ft_printf
+	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(FT_PRINTF_DIR)
+	@make clean -C $(MINILIBX)
 	@rm -f $(OBJ)
 
 # Cleaning up the program and object files
 fclean: clean
-#	make clean -C $(MINILIBX)
-	@make fclean -C ./libft 
-	@make fclean -C ./ft_printf
+# @make fclean -C $(MINILIBX)
+	@make fclean -C $(LIBFT_DIR)
+	@make fclean -C $(FT_PRINTF_DIR)
 	@rm -f $(NAME)
 
 # Rebuilding the project

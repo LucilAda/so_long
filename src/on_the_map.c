@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   on_the_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:07:07 by lucilla           #+#    #+#             */
-/*   Updated: 2024/05/21 11:57:54 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/22 13:33:54 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,25 @@ bool	are_there_walls(t_game *game)
 	column = 0;
 	while (column < game->width)
 	{
-		if (game->map[0][column] != '1' 
+		if (game->map[0][column] != '1'
 			|| game->map[game->height - 1][column] != '1')
-				return (false);
-			column++;
+			return (false);
+		column++;
 	}
 	return (true);
 }
 
-static void count_collectibles(t_game *game, int row, int column)
+static void	count_collectibles(t_game *game, int row, int column)
 {
-	char cell = game->map[row][column];
-	
-	if (cell != 'P' && cell != 'C'&& cell != 'E' && cell != '0'
+	char	cell;
+
+	cell = game->map[row][column];
+	if (cell != 'P' && cell != 'C' && cell != 'E' && cell != '0'
 		&& cell != '1' && cell != '\n')
-		{
-			ft_printf("There is an error in this map\n");
-			return ;
-		}
+	{
+		ft_printf("There is an error in this map\n");
+		return ;
+	}
 	if (cell == 'E')
 		game->numberE++;
 	else if (cell == 'P')
@@ -56,7 +57,7 @@ static void count_collectibles(t_game *game, int row, int column)
 /**
  * Check if there is the correct amount of players, exit, and collectibles
 */
-bool	are_PCE_ok(t_game *game)
+bool	are_characters_ok(t_game *game)
 {
 	int	row;
 	int	column;
@@ -87,21 +88,21 @@ bool	are_PCE_ok(t_game *game)
 /*
  * Create an array for the visited cells of the map
 */
-int **create_visited_array(int rows, int columns)
+int	**create_visited_array(int rows, int columns)
 {
-    int i;
-    int **visited;
-    
-    visited = malloc(rows * sizeof(int *));
-    if (!visited)
-		return NULL; 
-    i = 0;
-    while(i < rows)
-    {
-        visited[i] = ft_calloc(columns, sizeof(int));
-        i++;
-    }
-    return (visited);
+	int	i;
+	int	**visited;
+	
+	visited = malloc(rows * sizeof(int *));
+	if (!visited)
+		return (NULL);
+	i = 0;
+	while (i < rows)
+	{
+		visited[i] = ft_calloc(columns, sizeof(int));
+		i++;
+	}
+	return (visited);
 }
 
 /**
@@ -113,7 +114,7 @@ int **create_visited_array(int rows, int columns)
 // bool	is_there_a_path(int row, int column, int **visited_cell, t_game *game)
 // {
 // 	int i;
-	
+// 
 // 	game->map_copy = malloc(game->height * sizeof(char *));
 // 	if(!game->map_copy)
 // 		return(false);
@@ -128,9 +129,10 @@ int **create_visited_array(int rows, int columns)
 // 		}
 // 		i++;
 // 	}
-// 	if (row >= game->height - 1 || row < 0 || column >= game->width - 1 || column < 0)
+// 	if (row >= game->height - 1 || row < 0 || column >= game->width - 1 
+// || column < 0)
 // 			return (false);
-			
+// 
 // 	ft_printf("I'm here in the is_there_path\n");
 // 	if (game->map[row][column] == 'E')
 // 	{
@@ -156,14 +158,15 @@ int **create_visited_array(int rows, int columns)
 char	*initialising_map_copy(t_game *game)
 {
 	int	i;
-	game->map_copy = malloc(game->height * sizeof(char *));
-	if(!game->map_copy)
-		return("Error allocation memory for the copy of the map\n");
+	game->map_copy = malloc (game->height * sizeof(char *));
+	
+	if (!game->map_copy)
+		return ("Error allocation memory for the copy of the map\n");
 	i = 0;
-	while(i < game->height)
+	while (i < game->height)
 	{
 		game->map_copy[i] = ft_strdup(game->map[i]);
-		if(!game->map_copy[i])
+		if (!game->map_copy[i])
 		{
 			ft_printf("Error copying the map\n");
 			free(game->map_copy);
@@ -172,6 +175,7 @@ char	*initialising_map_copy(t_game *game)
 	}
 	return (*game->map_copy);
 }
+
 int	check_path_inside(int row, int column, int **visited_cell, t_game *game)
 {	
 	*game->map_copy = initialising_map_copy(game);
@@ -180,7 +184,7 @@ int	check_path_inside(int row, int column, int **visited_cell, t_game *game)
 	if (game->map[row][column] == 'C')
 	{
 		game->collectibles++;
-		return (true);	
+		return (true);
 	}
 	if (game->map[row][column] == '1' || visited_cell[row][column])
 	{
@@ -192,7 +196,7 @@ int	check_path_inside(int row, int column, int **visited_cell, t_game *game)
 		|| check_path_inside(row, column - 1, visited_cell, game)
 		|| check_path_inside(row + 1, column, visited_cell, game)
 		|| check_path_inside(row - 1, column, visited_cell, game))
-			return (true);
+		return (true);
 	return (false);
 }
 
@@ -204,10 +208,10 @@ bool	check_requirements(t_game *game)
 	visited_cell = create_visited_array(game->height, game->width);
 	i = 0;
 	
-    if (are_there_walls(game) == false)
+	if (are_there_walls(game) == false)
 		exit(false);
 		
-    if (are_PCE_ok(game) == false)
+	if (are_characters_ok(game) == false)
 		exit(false);
 	// if (is_there_a_path(game->height, game->width, visited_cell, game) == false)
 	// 	exit(false);
@@ -215,7 +219,7 @@ bool	check_requirements(t_game *game)
 		exit(false);
 	ft_printf("I'm after the path has been checked\n");
 		
-	while(i < game->height)
+	while (i < game->height)
 		free(visited_cell[i++]);
 	free(visited_cell);
 	return (true);

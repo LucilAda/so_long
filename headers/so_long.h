@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:25 by lufreder          #+#    #+#             */
-/*   Updated: 2024/05/10 11:49:59 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:04:27 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 # include "../libft/libft.h"
 # include "../ft_printf/ft_printf.h"
-# include "./get_next_line.h"
-// # include "../minilibx/mlx.h"
+# include "get_next_line.h"
+# include "../minilibx/mlx.h"
 
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 
 
 #define KEY_UP 'W'
@@ -66,9 +67,8 @@ typedef struct s_game
 
 int 	map_read(t_game *game, char *av[]);
 int		check_map_access(char *av[]);
-int		are_there_walls(t_game *map);
+bool	are_there_walls(t_game *game);
 void	check_collectibles_correct(t_game *game);
-int		check_requirements(t_game *game);
-
+bool	check_requirements(t_game *game);
 
 #endif
