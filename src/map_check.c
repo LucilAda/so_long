@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:07:04 by lucilla           #+#    #+#             */
-/*   Updated: 2024/05/22 11:17:33 by lufreder         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:40:10 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	add_line(t_game *game, char *line)
 {
 	char	**tmp_map;
 	int		i;
-
+	
 	i = 0;
 	if (!line)
 		return (0);
@@ -73,7 +73,7 @@ static int	add_line(t_game *game, char *line)
 	if (game->height > 1 && map_width(game->map[0]) != map_width(line))
 	{
 		ft_printf("The map is not rectangular\n");
-		exit (1);
+        exit (1);
 	}
 	tmp_map[i] = line;
 	if (game->map)
@@ -82,7 +82,7 @@ static int	add_line(t_game *game, char *line)
 	return (2);
 }
 
-int	map_read(t_game *game, char *av[])
+int map_read(t_game *game, char *av[])
 {
 	char	*read_line;
 
@@ -96,7 +96,7 @@ int	map_read(t_game *game, char *av[])
 	{
 		read_line = get_next_line(game->fd);
 		if (!add_line(game, read_line))
-			break ;
+			break;
 	}
 	game->width = map_width(game->map[0]);
 	free(read_line);
@@ -108,13 +108,13 @@ int	map_read(t_game *game, char *av[])
  * @param
 */
 
+#include <stdbool.h>
 //bool is_file_format_ok
 int	check_map_access(char *av[])
 {
-	size_t	len;
-	
+	size_t len;
 	len = ft_strlen(av[1]);
-	if (len < 4 || ft_strcmp(av[1] + len - 4, ".ber") != 0)
+	if (len < 4 || ft_strcmp(av[1] + len - 4, ".ber") != 0) 
 		return (ft_printf("Wrong type of file\n"));
 	else
 		return (ft_printf("The access of the map is correct\n"));
