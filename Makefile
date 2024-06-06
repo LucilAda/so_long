@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+         #
+#    By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 16:41:03 by lufreder          #+#    #+#              #
-#    Updated: 2024/06/04 11:06:42 by lucilla          ###   ########.fr        #
+#    Updated: 2024/06/06 17:37:14 by lufreder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME := so_long
 SRC := src/main.c src/map_check.c src/on_the_map.c \
 	../get_next_line/get_next_line.c ../get_next_line/get_next_line_utils.c
 OBJ := $(SRC:.c=.o)
+# OBJ := $(notdir $(SRC:.c=.o))
 HEADER = headers/so_long.h headers/get_next_line.h
 HEADERS = -Iheaders
 
@@ -29,7 +30,7 @@ FT_PRINTF_DIR = ft_printf
 FT_PRINTF = -L$(FT_PRINTF_DIR) -lftprintf
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I -arch arm64
+CFLAGS = -Wall -Wextra -Werror -I
 
 %.o: %.c
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
