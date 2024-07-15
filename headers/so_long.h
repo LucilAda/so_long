@@ -6,7 +6,7 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:25 by lufreder          #+#    #+#             */
-/*   Updated: 2024/05/30 14:36:05 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/06/27 16:12:22 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,18 @@
 # include "../libft/libft.h"
 # include "../ft_printf/ft_printf.h"
 # include "./get_next_line.h"
-# include "../minilibx/mlx.h"
+# include "../minilibx_opengl_20191021/mlx.h"
 
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
-// # include <mlx.h>
 
-#define KEY_UP 'W'
-#define KEY_RIGHT 'D'
-#define KEY_LEFT 'A'
-#define KEY_BOTTOM 'S'
-
+# define KEY_UP 'W'
+# define KEY_RIGHT 'D'
+# define KEY_LEFT 'A'
+# define KEY_BOTTOM 'S'
 
 typedef struct s_game
 {
@@ -41,9 +39,9 @@ typedef struct s_game
 	int		height;
 	int		fd;
 	void	*mlx;
-	int		numberP;
-	int		numberC;
-	int		numberE;
+	int		number_p;
+	int		number_c;
+	int		number_e;
 	int		collectibles;
 	int		reachable_collectibles;
 	int		collected;
@@ -54,22 +52,25 @@ typedef struct s_game
 	int		exit_found;
 	char	**map;
 	char	**map_copy;
+	void	*img_ptr;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*player;
+	void	*floor;
+	void	*wall;
+	void	*exit;
+	void	*collectable;
 }		t_game;
-
-typedef struct s_data
-{
-	void		*mlx_ptr; // MLX pointer
-	void		*win_ptr; // MLX window pointer
-	void		*textures[5]; // MLX image pointers (on the stack)
-	t_game		*map; // Map pointer (contains map details - preferably kept on the stack)
-}	t_data;
-
 
 int 	map_read(t_game *game, char *av[]);
 int		check_map_access(char *av[]);
 bool	are_there_walls(t_game *map);
-bool	are_PCE_ok(t_game *game);
+bool	are_pce_ok(t_game *game);
 bool	check_requirements(t_game *game);
-
+int		check_errors(t_game *game, char *av[]);
+int		game_init(t_game *game);
+int		checking_controls(int command, t_game *game);
+void	graphics(t_game *game);
+void	place_images_in_game(t_game *game);
 
 #endif
