@@ -3,87 +3,63 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+         #
+#    By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 16:41:03 by lufreder          #+#    #+#              #
-#    Updated: 2024/07/18 11:25:47 by lucilla          ###   ########.fr        #
+#    Updated: 2024/07/18 16:14:44 by lufreder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := so_long
-# Name of the program to be created
 
 SRC := src/main.c src/map_check.c src/on_the_map.c src/errors.c src/game_init.c \
 	src/play.c src/graphics.c src/walls_collectibles_pce.c \
-	../get_next_line/get_next_line.c ../get_next_line/get_next_line_utils.c
-OBJ := $(SRC:.c=.o)
-# OBJ := $(notdir $(SRC:.c=.o))
-HEADER = headers/so_long.h headers/get_next_line.h
-HEADERS = -Iheaders
+
+OBJ_DIR := object
+OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+HEADER := headers/so_long.h
+HEADERS := -Iheaders
 
 MLX_DIR := minilibx_opengl_20191021
 LIBRARY := -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 
-LIBFT_DIR = libft
-LIBFT = -L$(LIBFT_DIR) -lft
+LIBFT_DIR := libft
+LIBFT := $(LIBFT_DIR)/libft.a
 
-FT_PRINTF_DIR = ft_printf
-FT_PRINTF = -L$(FT_PRINTF_DIR) -lftprintf
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror $(HEADERS)
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(HEADERS)
-
-%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-# $(<:.c=.o)
+.PHONY: all clean fclean re debug libft libmlx
 
 all: $(NAME)
 
-$(NAME): $(OBJ) libft.a ft_printf.a
-	@echo "Making in $(MLX_DIR)"
-	@make -C $(MLX_DIR)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBRARY) $(LIBFT) $(FT_PRINTF) -o $(NAME)
+$(OBJ_DIR)/%.o: src/%.c $(HEADER)
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-libft.a:
-	@echo "Making in $(LIBFT_DIR)"
+$(NAME): $(OBJ) $(LIBFT) | libmlx
+	@echo "Compiling $@"
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBRARY) -L$(LIBFT_DIR) -lft -o $(NAME)
+
+$(LIBFT):
 	@make -C $(LIBFT_DIR)
-	@touch libft.a
 
-ft_printf.a:
-	@echo "Making in $(FT_PRINTF_DIR)"
-	@make -C $(FT_PRINTF_DIR)
-	@touch ft_printf.a
-
+libmlx:
+	@echo "Making libmlx"
+	@make -C $(MLX_DIR)
 
 clean:
-	@make clean -C ./libft 
-	@make clean -C ./ft_printf
-	@make clean -C ./minilibx_opengl_20191021
-	@rm -f $(OBJ)
+	@$(RM) -r $(OBJ_DIR)
+	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(MLX_DIR)
 
-# Cleaning up the program and object files
 fclean: clean
-	@make fclean -C ./libft 
-	@make fclean -C ./ft_printf
-	@make clean -C ./minilibx_opengl_20191021
-	@rm -f $(NAME)
-	@rm -f libft.a ft_printf.a
+	@$(RM) $(NAME)
+	@$(RM) $(LIBFT)
+	@make fclean -C $(LIBFT_DIR)
 
-# Rebuilding the project
-re: fclean clean all
+re: fclean all
 
-# Debugging the code
-debug:
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME) -g3 -fsanitize=address
-
-		
-# $(NAME) : $(OBJ)
-# 	@echo "Making in $(LIBFT_DIR)"
-# 	@make -C $(LIBFT_DIR)
-# 	@echo "Making in $(FT_PRINTF_DIR)"
-# 	@make -C $(FT_PRINTF_DIR)
-# 	@echo "Making in $(MLX_DIR)"
-# 	@make -C $(MLX_DIR)
-# 	@$(CC) $(CFLAGS) $(OBJ) $(LIBRARY) $(LIBFT) $(FT_PRINTF) -o $(NAME) 
-# @make -c $(MLX_DIR)
-# @$(CC) $(CFLAGS) $(OBJ) $(MLX_DIR) -Llibft -lft -o $@
+debug: CFLAGS += -g3 -fsanitize=address
+debug: $(NAME)

@@ -3,18 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:23:55 by lufreder          #+#    #+#             */
-/*   Updated: 2024/05/07 14:20:29 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/07/18 16:22:55 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+# include <fcntl.h>
+# include <stdarg.h>
 # include <stddef.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
 
 typedef struct s_list
@@ -70,4 +77,25 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 int		ft_lstsize(t_list *lst);
 
+/*GET_NEXT_LINE*/
+char	*store_reading(char *storage, char *buffer);
+char	*read_the_line(int fd, char *buffer, char *tmp);
+char	*extract(char *line);
+char	*get_next_line(int fd);
+char	*ft_substr_gnl(char *s, unsigned int start, size_t len);
+size_t	ft_strlen_gnl(const char	*s);
+char	*ft_strdup_gnl(const char *s1);
+char	*ft_strjoin_gnl(const char *s1, const char *s2);
+char	*ft_strchr_gnl(const char *s, int c);
+
+/*FT_PRINTF*/
+int		ft_printf(const char *s, ...);
+void	ft_putchar(char c, int *count);
+void	ft_putnbr_hex_ptr(unsigned long nbr, int *count);
+void	ft_putnbr_hex_xlo(unsigned int nb, int *count);
+void	ft_putnbr_hex_xup(unsigned int nb, int *count);
+void	ft_putnbr_u(unsigned int nb, int *count);
+void	ft_putnbr(int n, int *count);
+void	ft_putptr(void *ptr, int *count);
+void	ft_putstr(char *str, int *count);
 #endif

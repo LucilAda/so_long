@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+         #
+#    By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 14:49:06 by lufreder          #+#    #+#              #
-#    Updated: 2024/05/07 14:28:12 by lucilla          ###   ########.fr        #
+#    Updated: 2024/07/18 15:50:04 by lufreder         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
 	ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
 	ft_putendl_fd.c ft_putnbr_fd.c \
+	get_next_line.c get_next_line_utils.c \
+	ft_printf.c ft_putchar.c ft_putnbr_hex_ptr.c ft_putnbr_hex_xlo.c \
+	ft_putnbr_hex_xup.c ft_putnbr_u.c ft_putnbr.c ft_putptr.c ft_putstr.c
 
 BSRC = ft_lstnew.c ft_lstadd_front.c ft_lstdelone.c ft_lstlast.c ft_lstsize.c \
 	ft_lstadd_back.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
