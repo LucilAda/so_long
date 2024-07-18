@@ -6,7 +6,7 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:51:09 by lucilla           #+#    #+#             */
-/*   Updated: 2024/06/27 15:38:18 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:31:34 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int ac, char *av[])
 	init_struct(&game);
 	if (!check_map_access(av))
 		ft_printf("Error .ber\n");
+		
 	if (!map_read(&game, av))
 	{
 		ft_printf("Error reading map\n");

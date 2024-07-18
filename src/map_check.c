@@ -6,7 +6,7 @@
 /*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:07:04 by lucilla           #+#    #+#             */
-/*   Updated: 2024/06/27 16:06:52 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/07/18 11:30:33 by lucilla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ static int	add_line(t_game *game, char *line)
 int	map_read(t_game *game, char *av[])
 {
 	char	*read_line;
-
+	if (av[1] == NULL) {
+        ft_printf("Error: filename is NULL\n");
+        return 0;
+    }
 	game->fd = open(av[1], O_RDONLY);
 	if (game->fd == -1)
 	{
@@ -112,7 +115,10 @@ int	check_map_access(char *av[])
 
 	len = ft_strlen(av[1]);
 	if (len < 4 || ft_strcmp(av[1] + len - 4, ".ber") != 0)
+	{	
 		return (ft_printf("Wrong type of file\n"));
+		exit(1);
+	}
 	else
 		return (ft_printf("The access of the map is correct\n"));
 }
