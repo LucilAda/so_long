@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:25 by lufreder          #+#    #+#             */
-/*   Updated: 2024/06/27 16:12:22 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:39:41 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-# include "../ft_printf/ft_printf.h"
-# include "./get_next_line.h"
 # include "../minilibx_opengl_20191021/mlx.h"
 
 # include <unistd.h>
