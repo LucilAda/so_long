@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   on_the_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:07:07 by lucilla           #+#    #+#             */
-/*   Updated: 2024/06/27 15:13:03 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:20:28 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	check_path_inside(int row, int column, int **visited_cell, t_game *game)
 	}
 	if (game->map[row][column] == '1' || visited_cell[row][column])
 	{
-		return (false);
 		visited_cell[row][column] = true;
+		return (false);
 	}
 	game->map_copy[row][column] = 'P';
 	if (check_path_inside(row, column + 1, visited_cell, game)
@@ -85,13 +85,11 @@ bool	check_requirements(t_game *game)
 	visited_cell = create_visited_array(game->height, game->width);
 	i = 0;
 	if (are_there_walls(game) == false)
-		exit(false);
+		return(false);
 	if (are_pce_ok(game) == false)
-		exit(false);
-	// if (is_there_a_path(game->height, game->width, visited_cell, game) == false)
-	// 	exit(false);
+		return(false);
 	if (check_path_inside(game->height, game->width, visited_cell, game) == 1)
-		exit(false);
+		return(false);
 	while (i < game->height)
 		free(visited_cell[i++]);
 	free(visited_cell);

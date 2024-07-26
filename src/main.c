@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:51:09 by lucilla           #+#    #+#             */
-/*   Updated: 2024/07/18 11:31:34 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/07/26 14:15:47 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,31 @@ int	main(int ac, char *av[])
 		return (1);
 	}
 	init_struct(&game);
-	if (!check_map_access(av))
+	if (!check_map_access(av[1]))
+	{
 		ft_printf("Error .ber\n");
-		
-	if (!map_read(&game, av))
+		return (1);
+	}
+	
+	if (!map_read(&game, av[1]))
 	{
 		ft_printf("Error reading map\n");
 		return (1);
 	}
+	
 	if (check_requirements(&game) == false)
 	{
 		ft_printf("requirements not met\n");
 		return (1);
 	}
+	
 	if (check_errors(&game, &av[1]) == 0)
 	{
 		ft_printf("All good!\n");
 		return (1);
 	}
+	
 	game_init(&game);
-	close(game.fd);
 	free(game.map_copy);
 	free(game.map);
 	return (0);
