@@ -3,38 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucilla <lucilla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:07:04 by lucilla           #+#    #+#             */
-/*   Updated: 2024/07/18 11:30:33 by lucilla          ###   ########.fr       */
+/*   Updated: 2024/08/02 14:43:26 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
+
 /**
- * 
- * 1) Valider map (si validd => charger en mémoire (char **))
- *      - Valider longueur ligne (rectangle) - OK
- *      - Valider Player exist == 1 - OK
- *      - Valider Collectible >= 1 - OK
- *      - Valider Exit == 1 - OK
- *      - Valider Chemin possible
- * Flood fill?
- *      - Valider Charactères invalid (P/M/C/E/W)
- * If (letter != 'P' || letter != 'C' || letter != 'E' || letter != 'W')
- *      - Valider que la map c'est ".ber"
- * check ft_strnstr(path == ".ber")
- * 2) Charger les textures
- * 3) Préparer la minilibx
- * 4) Start la mlx_loop();
- * 5) Game logic
- *      - Input Keyboard (W/A/S/D + esc)
- *      - pouvoir Quitter (croix rouge)
- *      - pouvoir gagner
- *          - ramasser les collectibles
- *          - gérer collision exit
- *          - imprimer le nombre de mouvement (dans le terminal)
+ * @brief ma fonction test si .ber 
+ * @param
 */
+
+int	check_map_access(char *av[])
+{
+	size_t	len;
+
+	len = ft_strlen(av[1]);
+	if (len < 4 || ft_strcmp(av[1] + len - 4, ".ber") != 0)
+		return (0);
+	else
+	{
+		ft_printf("access to map correct/n");
+		return (1);
+	}
+}
 
 /**
  * Calculate the width of one line of the map
@@ -73,52 +68,67 @@ static int	add_line(t_game *game, char *line)
 		i++;
 	}
 	tmp_map[i] = line;
-	if (game->map)
+	if (game->map != NULL)
 		free(game->map);
 	game->map = tmp_map;
 	return (2);
 }
 
-int	map_read(t_game *game, char *av[])
-{
-	char	*read_line;
-	if (av[1] == NULL) {
-        ft_printf("Error: filename is NULL\n");
-        return 0;
-    }
-	game->fd = open(av[1], O_RDONLY);
-	if (game->fd == -1)
-	{
-		ft_printf("Error opening fd %s\n", av[1]);
-		return (0);
-	}
-	while (1)
-	{
-		read_line = get_next_line(game->fd);
-		if (!add_line(game, read_line))
-			break ;
-	}
-	game->width = map_width(game->map[0]);
-	free(read_line);
-	// close(game->fd);
-	return (3);
-}
 /**
- * @brief ma fonction test si .ber 
- * @param
+ * Open and read the content of the map
 */
-
-//bool is_file_format_ok
-int	check_map_access(char *av[])
+int map_read(t_game *game, char *file)
 {
-	size_t	len;
-
-	len = ft_strlen(av[1]);
-	if (len < 4 || ft_strcmp(av[1] + len - 4, ".ber") != 0)
-	{	
-		return (ft_printf("Wrong type of file\n"));
-		exit(1);
-	}
-	else
-		return (ft_printf("The access of the map is correct\n"));
+    char *read_line;
+    game->fd = open(file, O_RDONLY);
+    if (game->fd < 0) {
+        ft_printf("Error opening file\n");
+        return (0);
+    }
+    game->map = NULL;
+    game->height = 0;
+    ft_printf("Hello to you from inside map read\n");
+    while ((read_line = get_next_line(game->fd)) != NULL) {
+        if (read_line == NULL) {
+            ft_printf("Error reading line\n");
+            break;
+        }
+        if (!add_line(game, read_line)) {
+            ft_printf("Error adding line to map\n");
+            free(read_line);
+            break;
+        }
+        free(read_line);
+        game->height++;
+    }
+    if (game->map == NULL || game->map[0] == NULL) {
+        ft_printf("Error reading map\n");
+        close(game->fd);
+        return (0);
+    }
+    game->width = map_width(game->map[0]);
+    close(game->fd); // Fermez le descripteur de fichier ici
+    return (3);
 }
+
+// int	map_read(t_game *game, char *file)
+// {
+// 	char	*read_line;
+
+// 	game->fd = open(file, O_RDONLY);
+// 	if (game->fd == -1)
+// 	{
+// 		ft_printf("Error opening fd %s\n", file);
+// 		return (0);
+// 	}
+// 	while (1)
+// 	{
+// 		read_line = get_next_line(game->fd);
+// 		if (!add_line(game, read_line))
+// 			break ;
+// 	}
+// 	game->width = map_width(game->map[0]);
+// 	free(read_line);
+// 	close(game->fd);
+// 	return (3);
+// }
