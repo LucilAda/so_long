@@ -6,7 +6,7 @@
 /*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:07:07 by lucilla           #+#    #+#             */
-/*   Updated: 2024/07/26 15:20:28 by lufreder         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:34:30 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ bool	check_requirements(t_game *game)
 	visited_cell = create_visited_array(game->height, game->width);
 	i = 0;
 	if (are_there_walls(game) == false)
-		return(false);
+		return (false);
 	if (are_pce_ok(game) == false)
-		return(false);
+		return (false);
 	if (check_path_inside(game->height, game->width, visited_cell, game) == 1)
-		return(false);
+		return (false);
 	while (i < game->height)
 		free(visited_cell[i++]);
 	free(visited_cell);

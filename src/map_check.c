@@ -6,7 +6,7 @@
 /*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:07:04 by lucilla           #+#    #+#             */
-/*   Updated: 2024/08/02 14:43:26 by lufreder         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:37:25 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,38 +77,44 @@ static int	add_line(t_game *game, char *line)
 /**
  * Open and read the content of the map
 */
-int map_read(t_game *game, char *file)
+int	map_read(t_game *game, char *file)
 {
-    char *read_line;
-    game->fd = open(file, O_RDONLY);
-    if (game->fd < 0) {
-        ft_printf("Error opening file\n");
-        return (0);
-    }
-    game->map = NULL;
-    game->height = 0;
-    ft_printf("Hello to you from inside map read\n");
-    while ((read_line = get_next_line(game->fd)) != NULL) {
-        if (read_line == NULL) {
-            ft_printf("Error reading line\n");
-            break;
-        }
-        if (!add_line(game, read_line)) {
-            ft_printf("Error adding line to map\n");
-            free(read_line);
-            break;
-        }
-        free(read_line);
-        game->height++;
-    }
-    if (game->map == NULL || game->map[0] == NULL) {
-        ft_printf("Error reading map\n");
-        close(game->fd);
-        return (0);
-    }
-    game->width = map_width(game->map[0]);
-    close(game->fd); // Fermez le descripteur de fichier ici
-    return (3);
+	char	*read_line;
+
+	game->fd = open(file, O_RDONLY);
+	if (game->fd < 0)
+	{
+		ft_printf("Error opening file\n");
+		return (0);
+	}
+	game->map = NULL;
+	game->height = 0;
+	ft_printf("Hello to you from inside map read\n");
+	while ((read_line = get_next_line(game->fd)) != NULL)
+	{
+		if (read_line == NULL)
+		{
+			ft_printf("Error reading line\n");
+			break ;
+		}
+		if (!add_line(game, read_line))
+		{
+			ft_printf("Error adding line to map\n");
+			free(read_line);
+			break ;
+		}
+		free(read_line);
+		game->height++;
+	}
+	if (game->map == NULL || game->map[0] == NULL)
+	{
+		ft_printf("Error reading map\n");
+		close(game->fd);
+		return (0);
+	}
+	game->width = map_width(game->map[0]);
+	close(game->fd);
+	return (1);
 }
 
 // int	map_read(t_game *game, char *file)
@@ -117,10 +123,10 @@ int map_read(t_game *game, char *file)
 
 // 	game->fd = open(file, O_RDONLY);
 // 	if (game->fd == -1)
-// 	{
-// 		ft_printf("Error opening fd %s\n", file);
-// 		return (0);
-// 	}
+	// {
+	// 	ft_printf("Error opening fd %s\n", file);
+	// 	return (0);
+	// }
 // 	while (1)
 // 	{
 // 		read_line = get_next_line(game->fd);
