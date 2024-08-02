@@ -6,7 +6,7 @@
 /*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:51:09 by lucilla           #+#    #+#             */
-/*   Updated: 2024/07/26 14:15:47 by lufreder         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:25:35 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,14 @@ int	main(int ac, char *av[])
 		return (1);
 	}
 	init_struct(&game);
-	if (!check_map_access(av[1]))
-	{
-		ft_printf("Error .ber\n");
-		return (1);
-	}
+	// check_map_access(av[1]);
+	// map_read(&game, av[1]);
 	
-	if (!map_read(&game, av[1]))
-	{
-		ft_printf("Error reading map\n");
-		return (1);
-	}
-	
-	if (check_requirements(&game) == false)
-	{
-		ft_printf("requirements not met\n");
-		return (1);
-	}
+	// if (check_requirements(&game) == false)
+	// {
+	// 	ft_printf("requirements not met\n");
+	// 	return (1);
+	// }
 	
 	if (check_errors(&game, &av[1]) == 0)
 	{

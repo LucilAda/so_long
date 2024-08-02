@@ -6,7 +6,7 @@
 /*   By: lufreder <lufreder@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:56:25 by lufreder          #+#    #+#             */
-/*   Updated: 2024/07/26 14:11:32 by lufreder         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:38:59 by lufreder         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_game
 }		t_game;
 
 int		map_read(t_game *game, char *file);
-int		check_map_access(char *file);
+int		check_map_access(char *av[]);
 bool	are_there_walls(t_game *map);
 bool	are_pce_ok(t_game *game);
 bool	check_requirements(t_game *game);
